@@ -35,6 +35,8 @@ type CanvasViewProps = {
   className?: string;
   collapseAll: () => void;
   expandAll: () => void;
+  areNodesCollapsed: boolean;
+  toggleCollapseAll: () => void;
   onSaveCanvas: () => void;
 };
 
@@ -61,6 +63,8 @@ export const CanvasView = ({
   setViewMode,
   collapseAll,
   expandAll,
+  areNodesCollapsed,
+  toggleCollapseAll,
   onSaveCanvas,
 }: CanvasViewProps) => {
   const navigate = useNavigate();
@@ -155,6 +159,8 @@ export const CanvasView = ({
         setViewMode={setViewMode}
         collapseAll={collapseAll}
         expandAll={expandAll}
+        areNodesCollapsed={areNodesCollapsed}
+        toggleCollapseAll={toggleCollapseAll}
       />
 
       {/* Mode Indicators */}

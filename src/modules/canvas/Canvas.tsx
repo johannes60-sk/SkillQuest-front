@@ -13,6 +13,7 @@ export const Canvas = () => {
   const [cursorMode, setCursorMode] = useState<CursorModeType>("normal");
   const [connectionStart, setConnectionStart] = useState<string | null>(null);
   const [, setViewMode] = useState<ViewModeType>("canvas");
+  const [areNodesCollapsed, setAreNodesCollapsed] = useState(false);
 
   const { screenToFlowPosition } = useReactFlow();
 
@@ -37,6 +38,18 @@ export const Canvas = () => {
     addQuestNode,
     screenToFlowPosition,
   });
+
+  const toggleCollapseAll = useCallback(() => {
+    if (areNodesCollapsed) {
+      expandAll();
+      setAreNodesCollapsed(false);
+      setCursorMode("expand");
+    } else {
+      collapseAll();
+      setAreNodesCollapsed(true);
+      setCursorMode("collapse");
+    }
+  }, [areNodesCollapsed, collapseAll, expandAll, setCursorMode]);
 
   // - If no start point is selected, stores the clicked node's id.
   // - Otherwise, connects the start node to the clicked node and resets the selection.
@@ -74,6 +87,8 @@ export const Canvas = () => {
         setViewMode={setViewMode}
         collapseAll={collapseAll}
         expandAll={expandAll}
+        areNodesCollapsed={areNodesCollapsed}
+        toggleCollapseAll={toggleCollapseAll}
         onSaveCanvas={() => saveCanvas()}
       />
     </div>
